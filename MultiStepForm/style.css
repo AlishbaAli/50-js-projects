@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap");
+* {
+  font-family: "Outfit", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --main-color: #c41e67;
+  --dark-color: #a71555;
+  --step-color: #ced7e0;
+  --step-size: 32px;
+  --progress-width: calc((var(--steps) - 1) / var(--steps) * 100%);
+}
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lavender;
+  color: #333;
+}
+h1 {
+  margin-bottom: 16px;
+}
+.form-wizard {
+  background-color: white;
+  padding: 32px;
+  border-radius: 10px;
+  width: min(600px, 80%);
+  box-shadow:
+    0px,
+    4px,
+    8px rgba(0, 0, 0, 0.3);
+}
+.progress-container {
+  position: relative;
+}
+.progress-container::before {
+  content: "";
+  height: 4px;
+  width: var(--progress-width);
+  background-color: var(--step-color);
+  position: absolute;
+  top: calc(var(--step-size) / 2);
+  left: 50%;
+  translate: -50% -50%;
+}
+.progress-container ol {
+  list-style-type: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  counter-reset: step-number;
+  position: relative;
+  z-index: 3;
+}
+.progress-container li {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--step-color);
+  text-align: center;
+}
+.progress-container li::before {
+  counter-increment: step-number;
+  content: counter(step-number);
+  background-color: var(--step-color);
+  width: var(--step-size);
+  height: var(--step-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+}
