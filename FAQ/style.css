@@ -1,0 +1,57 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-image: url("https://c7.alamy.com/comp/PHT555/school-accessories-on-a-yellow-blue-bright-background-back-to-school-concept-office-and-student-supplies-free-space-for-your-project-the-top-view-PHT555.jpg");
+  background-repeat: no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+.accordian {
+  width: 65%;
+  background-color: aliceblue;
+  border-radius: 30px;
+  padding: 30px;
+}
+.accordian .title {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.accordian .content-container .question {
+  padding: 18px 0px;
+  font-size: 22px;
+  cursor: pointer;
+  border-bottom: 1px solid black;
+  position: relative;
+}
+.accordian .content-container .question::after {
+  content: "+";
+  position: absolute;
+  right: -5px;
+}
+.accordian .content-container .answer {
+  padding-top: 15px;
+  font-size: 22px;
+  width: 100%;
+  height: 0px;
+  overflow: hidden;
+  transition: 0.5s;
+}
+.accordian .content-container.active .answer {
+  height: 150px;
+}
+.accordian .content-container.active .question {
+  font-size: 18px;
+  transition: 0.5s;
+}
+.accordian .content-container.active .question::after {
+  content: "-";
+  font-size: 30px;
+  transition: 0.5s;
+  position: absolute;
+}
