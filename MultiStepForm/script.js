@@ -30,6 +30,51 @@ const updateButtons = () => {
   nextButton.hidden = currentStep >= stepIndicators.length - 1;
   submitButton.hidden = !nextButton.hidden;
 };
+const isValidStep = () => {
+  const fields = steps[currentStep].querySelectorAll("input, textarea");
+  return [...fields].every((field) => field.reportValidity());
+};
+
+const inputs = form.querySelectorAll("input, textarea");
+inputs.forEach((input) =>
+  input.addEventListener("focus", (e) => {
+    const focusedElement = e.target;
+
+    // get the step where the focused element belongs
+    const focusedStep = [...steps].findIndex((step) =>
+      step.contains(focusedElement),
+    );
+
+    if (focusedStep !== -1 && focusedStep !== currentStep) {
+      if (!isValidStep()) return;
+
+      currentStep = focusedStep;
+      updateProgress();
+    }
+
+    stepsContainer.scrollTop = 0;
+    stepsContainer.scrollLeft = 0;
+  }),
+);
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // prevent form submission
+
+  if (!form.checkValidity()) return;
+
+  const formData = new FormData(form);
+
+  // send the data somewhere
+  console.log(Object.fromEntries(formData));
+
+  submitButton.disabled = true;
+  submitButton.textContent = "Submitting...";
+
+  // mimic a server request
+  setTimeout(() => {
+    form.querySelector(".completed").hidden = false;
+  }, 3000);
+});
+
 prevButton.addEventListener("click", (e) => {
   e.preventDefault();
   if (currentStep > 0) {
@@ -40,6 +85,8 @@ prevButton.addEventListener("click", (e) => {
 
 nextButton.addEventListener("click", (e) => {
   e.preventDefault();
+  if (!isValidStep()) return;
+
   if (currentStep < stepIndicators.length - 1) {
     currentStep++;
     updateProgress();
